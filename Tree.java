@@ -1,63 +1,53 @@
 import java.util.*;
-class Tree<T>{
-	class Node<T>{
-		T data;
-		Node<T> left=null;
-		Node<T> right=null;
-		public Node(T data){
-			this.data = data;
-		}
+class TestMyTree{
+    public static void main(String [] args){
+	MyTree tree = new MyTree();
+	Scanner sc = new Scanner(System.in);
+	int n = sc.nextInt();
+	while(n--!=0){
+		int data = sc.nextInt();
+		tree.insert(data);
 	}
+	tree.print();
+    }
+}
 
-	public Node<T> insert(Node<T> root,T data){
-		if(root==null){
-			Node<T> node = new Node<>();
-			root = node;
-			return root;
-		}
-		if(root.data<data){
-			root = insert(root.left,data);
-			return root;
-		}else{
-			root = insert(root.right,data);
-			return root;
-		}
-	}
+class MyTree{
+    Node root = null;
 
-	public bool search(Node<T> root,T data){
-		if(data=root.data)return true;
-		if(root==null)return false;
-		if(root.data<data)search(root.left,data);
-		else search(root.right,data);
+    class Node{
+	int data;
+	Node left = null;
+	Node right = null;
+	public Node(int data){
+		this.data = data;
 	}
+    }
 
-	public void print(Node<T> root){
-		if(root==null)return;
-		print(root.left);
-		System.out.println(" "+root.data);
-		print(root.right);
-	}
+    public void insert(int data){
+	this.root = insert (root, data);
+    }
 
-	public static void main(String [] args){
-		Tree<Integer> tree = new Tree<>();
-		int exit = 1;
-		while(exit!=0){
-			System.out.print("1.Insert\n2.Print\n3.Search\n0.exit\nEnter your choice\n");
-			int choice = sc.nextInt();
-			switch(choice){
-				case 1:
-					int data = sc.nextInt();
-					Node<T> root=tree.insert(data);
-					break;
-				case 2:
-					tree.print(root);
-					break;
-				case 3:
-					System.out.println(tree.search());
-					break;
-				default:
-					exit=0;
-			}
-		}
+    public Node insert(Node root,int data){
+	if(root==null){
+		Node node = new Node(data);
+		return node;
 	}
+	if(data < root.data){
+		root.left = insert(root.left,data);
+	}else{
+		root.right = insert(root.right, data);
+	}
+	return root;
+    }
+	
+    public void print(){
+	print(root);
+    }
+    public void print(Node root){
+	if(root == null)return;
+	print(root.left);
+	System.out.print(root.data + " ");
+	print(root.right);
+    }    
 }
